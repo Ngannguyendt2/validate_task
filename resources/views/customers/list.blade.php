@@ -5,6 +5,22 @@
     <div class="col-12">
         <div class="row justify-content-left">
             <div class="col-12 ">
+                <div class="col-4">
+                    <form method="post" action="{{route('customers.search')}}">
+                        @csrf
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" placeholder="Search" name="keyword">
+
+                        </div>
+                        <div class="col-4">
+
+                            <button type="submit" class="btn btn-primary">Search</button>
+
+                        </div>
+
+                    </form>
+                </div>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -28,7 +44,8 @@
                                 <th>{{$customer->email}}</th>
                                 <th>{{$customer->city->name}}</th>
                                 <th><a href="{{route('customers.edit',['id'=>$customer->id])}}" class="btn btn-success">Edit</a>|
-                                    <a href="{{route('customers.delete',['id'=>$customer->id])}}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete?')">Delete</a>
+                                    <a href="{{route('customers.delete',['id'=>$customer->id])}}" class="btn btn-danger"
+                                       onclick="return confirm('Are you sure want to delete?')">Delete</a>
                                 </th>
                             </tr>
                         @endforeach
@@ -43,5 +60,5 @@
         </div>
 
     </div>
-
+    {{$customers->appends(request()->query())}}
 @endsection

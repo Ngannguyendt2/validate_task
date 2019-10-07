@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Customer;
+use App\Http\Requests\CustomerTableRequest;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -27,6 +29,10 @@ class CustomerController extends Controller
         $customer = new Customer;
         $customer->name = $request->name;
         $customer->email = $request->email;
+        if($request->file("image")){
+            $path=$request->file('image')->store('images','public');
+            $customer->image=$path;
+        }
         $customer->city_id = $request->city_id;
         $customer->save();
         return redirect()->route('customers.index');
@@ -52,6 +58,15 @@ class CustomerController extends Controller
         $customer->name = $request->name;
         $customer->email = $request->email;
         $customer->city_id = $request->city_id;
+        if($request->file('image')){
+            $currentImage=$customer->image;
+            if($currentImage){
+                unlink(storage_path('/app/public/'.$currentImage));
+            }
+
+            $path=$request->file('image')->store('images','public');
+            $customer->image=$path;
+        }
         $customer->save();
         return redirect()->route('customers.index');
     }

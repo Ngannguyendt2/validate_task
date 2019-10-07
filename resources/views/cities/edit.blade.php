@@ -7,8 +7,13 @@
             <form method="post" action="{{route('cities.update',['id'=>$city->id])}}">
                 @csrf
                 <div class="form-group">
-                    <label>Email address</label>
+                    <label>City</label>
                     <input type="text" class="form-control" placeholder="Enter name city" name="city" value="{{$city->name}}">
+                </div>
+                <div class="error-message text-danger">
+                    @if ($errors->has('city'))
+                        {{ $errors->first('city') }}
+                    @endif
                 </div>
 
                 <div class="col"><button type="submit" class="btn btn-primary">Edit</button></div>

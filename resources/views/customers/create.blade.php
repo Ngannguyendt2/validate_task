@@ -4,7 +4,7 @@
     <div class="row justify-content-left"><h1>Them nguoi dan</h1></div>
     <div class="col-12">
         <div class="row justify-content-left">
-            <form method="post" action="{{route('customers.store')}}">
+            <form method="post" action="{{route('customers.store')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Name</label>
@@ -13,6 +13,10 @@
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" class="form-control" placeholder="Enter your email" name="email">
+                </div>
+                <div class="form-group">
+                    <label>Image</label>
+                    <input type="file" class="form-control" name="image">
                 </div>
                 <div class="form-group">
                     <label>City-code</label>

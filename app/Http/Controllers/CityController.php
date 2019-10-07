@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Customer;
+use App\Http\Requests\CityTableRequest;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -20,12 +21,13 @@ class CityController extends Controller
         return view('cities.create');
     }
 
-    public function store(Request $request)
+    public function store(CityTableRequest $request)
     {
+        $success= "Dữ liệu được xác thực thành công";
         $city = new City;
         $city->name = $request->city;
         $city->save();
-        return redirect()->route('cities.index');
+        return redirect()->route('cities.index',compact('success'));
     }
 
     public function destroy($id)
@@ -42,7 +44,7 @@ class CityController extends Controller
         return view('cities.edit', compact('city'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CityTableRequest $request, $id)
     {
         $city = City::find($id);
         $city->name = $request->city;
